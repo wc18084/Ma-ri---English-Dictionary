@@ -1,1 +1,1 @@
-# Ma-ri---English-Dictionary
+# Maori---English-Dictionary
