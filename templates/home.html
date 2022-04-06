@@ -8,12 +8,7 @@
 <div class="Dictionarys">
     {% for Dictionary in Dictionarys %}
          <div class="product-box">
-             <h3><strong>maori: </strong>{{ Dictionary[0] }}</h3>
-             <p><strong>English: </strong>{{ Dictionary[1] }}</p>
-             <p><strong>Category: </strong>{{ Dictionary[2] }}</p>
-             <p><strong>Definition: </strong>{{ Dictionary[3] }}</p>
-             <p><strong>Level: </strong>{{ Dictionary[4] }}</p>
-             <a href="/word/{{Dictionary[0]}}">details for {{Dictionary[0]}}</a>
+             <a href="/word/{{Dictionary[2]}}">words for {{Dictionary[2]}}</a>
          </div>
          {% endfor %}
     </div>

@@ -29,8 +29,28 @@ def render_homepage():
     return render_template('home.html', Dictionarys=Dictionary_list)
 
 
-@app.route('/word/Dictionary[0]')
-def render_wordpage():
-    return render_template('word.html')
+@app.route('/word/<category>')
+def render_wordpage(category):
+    con = create_connection(DB_NAME)
+
+    query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary where Category=?"
+
+    cur = con.cursor()
+    cur.execute(query, (category, ))
+    Dictionary_list = cur.fetchall()
+    con.close()
+    return render_template('word.html', Dictionarys=Dictionary_list)
+
+@app.route('/detail/<maori>')
+def render_detailpage(maori):
+    con = create_connection(DB_NAME)
+
+    query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary where Maori=?"
+
+    cur = con.cursor()
+    cur.execute(query, (maori,))
+    Dictionary_list = cur.fetchall()
+    con.close()
+    return render_template('detail.html', Dictionarys=Dictionary_list)
 
 app.run(host='0.0.0.0', debug=True)

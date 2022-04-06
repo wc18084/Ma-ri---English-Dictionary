@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Maōri Dictionary | Home{% endblock %}
-
-{% block heading %}Maōri - English Dictionary{% endblock %}
+{% block pageheading %}detail{% endblock %}
 
 {% block main %}
 <div class="Dictionarys">
@@ -10,7 +8,9 @@
          <div class="product-box">
              <h3><strong>maori: </strong>{{ Dictionary[0] }}</h3>
              <p><strong>English: </strong>{{ Dictionary[1] }}</p>
-             <a href="/detail/{{Dictionary[0]}}">details for {{Dictionary[0]}}</a>
+             <p><strong>Category: </strong>{{ Dictionary[2] }}</p>
+             <p><strong>Definition: </strong>{{ Dictionary[3] }}</p>
+             <p><strong>Level: </strong>{{ Dictionary[4] }}</p>
          </div>
          {% endfor %}
     </div>
