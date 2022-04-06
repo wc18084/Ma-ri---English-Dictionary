@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\18084\OneDrive - Wellington College\13DTS\Maori---English-Dictionary\Dictionary.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Dictionary [2]" uuid="31b5cce5-cc8a-43a9-afe7-993b2875e858">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\29306\OneDrive - Wellington College\13DTS\Maori---English-Dictionary\Dictionary.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
