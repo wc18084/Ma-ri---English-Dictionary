@@ -19,14 +19,14 @@ def create_connection(db_file):
 def render_homepage():
     con = create_connection(DB_NAME)
 
-    query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary"
+    query = "SELECT Category FROM Category"
 
     cur = con.cursor()
     cur.execute(query)
-    Dictionary_list = cur.fetchall()
+    Category_list = cur.fetchall()
     con.close()
 
-    return render_template('home.html', Dictionarys=Dictionary_list)
+    return render_template('home.html', Categorys=Category_list)
 
 
 @app.route('/word/<category>')
@@ -36,10 +36,19 @@ def render_wordpage(category):
     query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary where Category=?"
 
     cur = con.cursor()
-    cur.execute(query, (category, ))
+    cur.execute(query, (category,))
     Dictionary_list = cur.fetchall()
     con.close()
-    return render_template('word.html', Dictionarys=Dictionary_list)
+
+    con2 = create_connection(DB_NAME)
+
+    query2 = "SELECT Category FROM Category"
+
+    cur2 = con2.cursor()
+    cur2.execute(query2)
+    Category_list = cur2.fetchall()
+    con2.close()
+    return render_template('word.html', Dictionarys=Dictionary_list, Categorys=Category_list)
 
 @app.route('/detail/<maori>')
 def render_detailpage(maori):
@@ -51,6 +60,15 @@ def render_detailpage(maori):
     cur.execute(query, (maori,))
     Dictionary_list = cur.fetchall()
     con.close()
-    return render_template('detail.html', Dictionarys=Dictionary_list)
+
+    con2 = create_connection(DB_NAME)
+
+    query2 = "SELECT Category FROM Category"
+
+    cur2 = con2.cursor()
+    cur2.execute(query2)
+    Category_list = cur2.fetchall()
+    con2.close()
+    return render_template('detail.html', Dictionarys=Dictionary_list, Categorys=Category_list)
 
 app.run(host='0.0.0.0', debug=True)

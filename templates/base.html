@@ -22,9 +22,15 @@
 			<span></span>
 			<ul>
                 <li><a href="\">Home</a></li>
-				<li><a href="\word">Word</a></li>
-				<li><a href="\detail">Detail</a></li>
-
+				<br><br>
+				<div class="Categorys">
+    {% for Category in Categorys %}
+         <div class="product-box">
+             <a href="/word/{{Category[0]}}">{{Category[0]}}</a>
+			 <br><br>
+         </div>
+         {% endfor %}
+    </div>
 			</ul>
 		</nav>
 
