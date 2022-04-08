@@ -5,15 +5,19 @@
 {% block heading %}Maōri - English Dictionary{% endblock %}
 
 {% block main %}
-<div class="Dictionarys">
+<table>
+    <tr>
+        <td><strong>Maori </strong></td>
+        <td><strong>English </strong></td>
+    </tr>
+
+
     {% for Dictionary in Dictionarys %}
-         <div class="product-box">
-             <h3><strong>maori: </strong>{{ Dictionary[0] }}</h3>
-             <p><strong>English: </strong>{{ Dictionary[1] }}</p>
-             <a href="/detail/{{Dictionary[0]}}">details for {{Dictionary[0]}}</a>
-             <br><br>
-             <br><br>
-         </div>
-         {% endfor %}
-    </div>
+    <tr>
+        <td><a href="/detail/{{Dictionary[0]}}">{{Dictionary[0]}}</a></td>
+        <td><a href="/detail/{{Dictionary[0]}}">{{Dictionary[1]}}</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
 {% endblock %}

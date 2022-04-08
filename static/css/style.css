@@ -84,7 +84,7 @@ table {
 
 th, td {
     border: 1px solid #888;
-    padding: 0.2rem;
+    padding: 1.5rem 10px;
     text-align: left;
 }
 th {
