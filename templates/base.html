@@ -31,6 +31,13 @@
          </div>
          {% endfor %}
     </div>
+				<a href="/signup">sign up</a>
+				<br><br>
+				{% if logged_in %}
+				<a href="/logout">log out</a>
+				{% else %}
+				<a href="/login">log in</a>
+				{% endif %}
 			</ul>
 		</nav>
 
