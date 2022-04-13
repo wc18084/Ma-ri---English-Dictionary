@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block pageheading %}
+edit
+{% endblock %}
+
+{% block main %}
+<form class="dataForm" method="post">
+    <div class="form-group">
+         <div class="form-label">Maori:</div>
+         <div class="form-element"><input id="Maori" name="Maori" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+         <div class="form-label">English:</div>
+         <div class="form-element"><input id="English" name="English" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+         <div class="form-label">Category:</div>
+         <div class="form-element"><input id="Category" name="Category" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+         <div class="form-label">Definition:</div>
+         <div class="form-element"><input id="Definition" name="Definition" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+         <div class="form-label">Level:</div>
+         <div class="form-element"><input id="Level" name="Level" type="text" required></div>
+    </div>
+
+    <div class="button-group">
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </div>
+</form>
+{% endblock %}

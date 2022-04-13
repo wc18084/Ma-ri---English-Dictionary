@@ -38,6 +38,11 @@
 				{% else %}
 				<a href="/login">log in</a>
 				{% endif %}
+				<br><br>
+				{% if logged_in %}
+				<a href="/edit">add word</a>
+				{% endif %}
+
 			</ul>
 		</nav>
 

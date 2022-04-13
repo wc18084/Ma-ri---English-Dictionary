@@ -35,7 +35,7 @@ def render_homepage():
 def render_wordpage(category):
     con = create_connection(DB_NAME)
 
-    query = "SELECT Maori, English, Category, Definition, Level, Image FROM Dictionary where Category=?"
+    query = "SELECT Maori, English, Category, Definition, Level, Image, id FROM Dictionary where Category=?"
 
     cur = con.cursor()
     cur.execute(query, (category,))
@@ -62,8 +62,8 @@ def render_wordpage(category):
     return render_template('word.html', Dictionarys=Dictionary_list, Categorys=Category_list, Update_words=Update_word_list, logged_in=is_logged_in(),)
 
 
-@app.route('/detail/<maori>')
-def render_detailpage(maori):
+@app.route('/detail/<maori>/<id>', methods=["GET", "POST"])
+def render_detailpage(maori, id):
     con = create_connection(DB_NAME)
 
     query = "SELECT Maori, English, Category, Definition, Level, Image FROM Dictionary where Maori=?"
@@ -90,7 +90,37 @@ def render_detailpage(maori):
             update_word[5] = "noimage"
         Update_word_list.append(update_word)
 
-    return render_template('detail.html', Dictionarys=Dictionary_list, Categorys=Category_list,  Update_words=Update_word_list, logged_in=is_logged_in())
+
+    if request.method == "POST":
+        Maori = request.form.get('Maori')
+        English = request.form.get('English')
+        Category = request.form.get('Category')
+        Definition = request.form.get("Definition")
+        Level = request.form.get("Level")
+
+        con3 = create_connection(DB_NAME)
+
+        query3 = "Update Dictionary SET Maori=?, English=?, Category=?, Definition=?, Level=?, Image=Null WHERE id=?"
+
+        cur3 = con3.cursor()
+
+        Category_list = ["Actions", "Animals", "Clothing", "Culture / Religion", "Descriptive", "Emotions", "Food",
+                        "Math / Number", "Outdoors", "People", "Places", "Plants", "School", "Sport", "Technology",
+                        "Time", "Others"]
+        re_Category = False
+        if Category not in Category_list:
+            re_Category = True
+        print(Maori, English, Category, Definition, Level, id)
+        if re_Category is True:
+            return redirect("/edit?error=Category+is+invalid")
+        else:
+            cur3.execute(query3, (Maori, English, Category, Definition, Level, id))
+
+        con3.commit()
+        con3.close()
+        return redirect("/")
+
+    return render_template('detail.html', Dictionarys=Dictionary_list, Categorys=Category_list, Update_words=Update_word_list, logged_in=is_logged_in())
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -159,6 +189,20 @@ def logout():
     return redirect(request.referrer + '?message=See+you+next+time!')
 
 
+@app.route('/delete/<maori>')
+def delete(maori):
+    query = "DELETE FROM Dictionary where Maori=?"
+    con = create_connection(DB_NAME)
+    cur = con.cursor()
+    cur.execute(query,(maori,))
+
+    print("word deleted")
+
+    con.commit()
+    con.close()
+    return redirect("/")
+
+
 def is_logged_in():
     if session.get("email") is None:
         print("not logged in")
@@ -167,5 +211,48 @@ def is_logged_in():
         print("logged in")
         return True
 
+
+@app.route('/edit', methods=["GET", "POST"])
+def render_edit_page():
+    if request.method == "POST":
+        print(request.form)
+        Maori = request.form.get('Maori')
+        English = request.form.get('English')
+        Category = request.form.get('Category')
+        Definition = request.form.get("Definition")
+        Level = request.form.get("Level")
+
+
+        con = create_connection(DB_NAME)
+
+        query = "INSERT INTO Dictionary(Maori, English, Category, Definition, Level, Image) VALUES(?,?,?,?,?,Null)"
+
+        cur = con.cursor()
+
+        Category_list = ["Actions", "Animals", "Clothing", "Culture / Religion", "Descriptive", "Emotions", "Food",
+                         "Math / Number", "Outdoors", "People", "Places", "Plants", "School", "Sport", "Technology",
+                         "Time", "Others"]
+        re_Category = False
+        if Category not in Category_list:
+            re_Category = True
+
+        if re_Category is True:
+            return redirect("/edit?error=Category+is+invalid")
+        else:
+            cur.execute(query, (Maori, English, Category, Definition, Level))
+
+        con.commit()
+        con.close()
+
+    con2 = create_connection(DB_NAME)
+
+    query2 = "SELECT Category FROM Category"
+
+    cur2 = con2.cursor()
+    cur2.execute(query2)
+    Category_list = cur2.fetchall()
+    con2.close()
+
+    return render_template('edit.html', Categorys=Category_list, logged_in=is_logged_in())
 
 app.run(host='0.0.0.0', debug=True)

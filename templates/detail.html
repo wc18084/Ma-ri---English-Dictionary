@@ -1,14 +1,52 @@
 {% extends 'base.html' %}
 
-{% block pageheading %}detail{% endblock %}
+{% block title %}Maōri Dictionary | Home{% endblock %}
+
+{% block heading %}Maōri - English Dictionary{% endblock %}
 
 {% block main %}
-    {% for word in Update_words %}
-             <h3><strong>maori: </strong>{{ word[0] }}</h3>
-             <p><strong>English: </strong>{{ word[1] }}</p>
-             <p><strong>Category: </strong>{{ word[2] }}</p>
-             <p><strong>Definition: </strong>{{ word[3] }}</p>
-             <p><strong>Level: </strong>{{ word[4] }}</p>
-             <p><img class="thumb2" src = "/static/images/{{word[5]}}.jpg"></p>
-         {% endfor %}
+{% for word in Update_words %}
+<p><strong>maori: </strong><strong>{{ word[0] }}</strong></p>
+<p><strong>English: </strong><strong>{{ word[1] }}</strong></p>
+<p><strong>Category: </strong><strong>{{ word[2] }}</strong></p>
+<p><strong>Definition: </strong><strong>{{ word[3] }}</strong></p>
+<p><strong>Level: </strong><strong>{{ word[4] }}</strong></p>
+<p><img class="thumb2" src="/static/images/{{word[5]}}.jpg"></p>
+{% if logged_in %}
+<td><a href="/delete/{{word[0]}}">delete</a></td>
+<br><br><br><br>
+<form class="dataForm" method="post">
+
+    <div class="form-group">
+        <div class="form-label">Maori:</div>
+        <div class="form-element"><input id="Maori" name="Maori" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">English:</div>
+        <div class="form-element"><input id="English" name="English" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Category:</div>
+        <div class="form-element"><input id="Category" name="Category" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Definition:</div>
+        <div class="form-element"><input id="Definition" name="Definition" type="text" required></div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Level:</div>
+        <div class="form-element"><input id="Level" name="Level" type="text" required></div>
+    </div>
+
+    <div class="button-group">
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </div>
+</form>
+{% endif %}
+{% endfor %}
 {% endblock %}

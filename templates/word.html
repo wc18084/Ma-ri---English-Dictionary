@@ -7,16 +7,16 @@
 {% block main %}
 <table>
     <tr>
-        <td><strong>Maori </strong></td>
-        <td><strong>English </strong></td>
-        <td><strong>Image </strong></td>
+        <th><strong>Maori </strong></th>
+        <th><strong>English </strong></th>
+        <th><strong>Image </strong></th>
     </tr>
 
 
     {% for word in Update_words %}
     <tr>
-        <td><a href="/detail/{{word[0]}}">{{word[0]}}</a></td>
-        <td><a href="/detail/{{word[0]}}">{{word[1]}}</a></td>
+        <td><a href="/detail/{{word[0]}}/{{word[6]}}">{{word[0]}}</a></td>
+        <td><a href="/detail/{{word[0]}}/{{word[6]}}">{{word[1]}}</a></td>
         <td><img class="thumb" src = "/static/images/{{word[5]}}.jpg"></td>
     </tr>
 
