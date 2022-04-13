@@ -3,11 +3,12 @@
 {% block pageheading %}detail{% endblock %}
 
 {% block main %}
-    {% for Dictionary in Dictionarys %}
-             <h3><strong>maori: </strong>{{ Dictionary[0] }}</h3>
-             <p><strong>English: </strong>{{ Dictionary[1] }}</p>
-             <p><strong>Category: </strong>{{ Dictionary[2] }}</p>
-             <p><strong>Definition: </strong>{{ Dictionary[3] }}</p>
-             <p><strong>Level: </strong>{{ Dictionary[4] }}</p>
+    {% for word in Update_words %}
+             <h3><strong>maori: </strong>{{ word[0] }}</h3>
+             <p><strong>English: </strong>{{ word[1] }}</p>
+             <p><strong>Category: </strong>{{ word[2] }}</p>
+             <p><strong>Definition: </strong>{{ word[3] }}</p>
+             <p><strong>Level: </strong>{{ word[4] }}</p>
+             <p><img class="thumb2" src = "/static/images/{{word[5]}}.jpg"></p>
          {% endfor %}
 {% endblock %}

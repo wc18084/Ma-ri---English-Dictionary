@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, session, redirect
 import sqlite3
 from sqlite3 import Error
-import bcrypt
 
 DB_NAME = "Dictionary.db"
-
 app = Flask(__name__)
 app.secret_key = "12345678"
+
 
 def create_connection(db_file):
     try:
@@ -36,7 +35,7 @@ def render_homepage():
 def render_wordpage(category):
     con = create_connection(DB_NAME)
 
-    query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary where Category=?"
+    query = "SELECT Maori, English, Category, Definition, Level, Image FROM Dictionary where Category=?"
 
     cur = con.cursor()
     cur.execute(query, (category,))
@@ -51,14 +50,23 @@ def render_wordpage(category):
     cur2.execute(query2)
     Category_list = cur2.fetchall()
     con2.close()
-    return render_template('word.html', Dictionarys=Dictionary_list, Categorys=Category_list, logged_in=is_logged_in())
+
+    Update_word_list = []
+
+    for word in Dictionary_list:
+        update_word = [item for item in word]
+        if update_word[5] is None:
+            update_word[5] = "noimage"
+        Update_word_list.append(update_word)
+
+    return render_template('word.html', Dictionarys=Dictionary_list, Categorys=Category_list, Update_words=Update_word_list, logged_in=is_logged_in(),)
 
 
 @app.route('/detail/<maori>')
 def render_detailpage(maori):
     con = create_connection(DB_NAME)
 
-    query = "SELECT Maori, English, Category, Definition, Level FROM Dictionary where Maori=?"
+    query = "SELECT Maori, English, Category, Definition, Level, Image FROM Dictionary where Maori=?"
 
     cur = con.cursor()
     cur.execute(query, (maori,))
@@ -73,7 +81,16 @@ def render_detailpage(maori):
     cur2.execute(query2)
     Category_list = cur2.fetchall()
     con2.close()
-    return render_template('detail.html', Dictionarys=Dictionary_list, Categorys=Category_list, logged_in=is_logged_in())
+
+    Update_word_list = []
+
+    for word in Dictionary_list:
+        update_word = [item for item in word]
+        if update_word[5] is None:
+            update_word[5] = "noimage"
+        Update_word_list.append(update_word)
+
+    return render_template('detail.html', Dictionarys=Dictionary_list, Categorys=Category_list,  Update_words=Update_word_list, logged_in=is_logged_in())
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -132,6 +149,7 @@ def render_signup_page():
         con.close()
 
     return render_template('signup.html', logged_in=is_logged_in())
+
 
 @app.route('/logout')
 def logout():

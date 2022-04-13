@@ -9,13 +9,15 @@
     <tr>
         <td><strong>Maori </strong></td>
         <td><strong>English </strong></td>
+        <td><strong>Image </strong></td>
     </tr>
 
 
-    {% for Dictionary in Dictionarys %}
+    {% for word in Update_words %}
     <tr>
-        <td><a href="/detail/{{Dictionary[0]}}">{{Dictionary[0]}}</a></td>
-        <td><a href="/detail/{{Dictionary[0]}}">{{Dictionary[1]}}</a></td>
+        <td><a href="/detail/{{word[0]}}">{{word[0]}}</a></td>
+        <td><a href="/detail/{{word[0]}}">{{word[1]}}</a></td>
+        <td><img class="thumb" src = "/static/images/{{word[5]}}.jpg"></td>
     </tr>
 
     {% endfor %}
