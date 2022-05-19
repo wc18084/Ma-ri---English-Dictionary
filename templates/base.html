@@ -26,7 +26,7 @@
 				<div class="Categorys">
     {% for Category in Categorys %}
          <div class="product-box">
-             <a href="/word/{{Category[0]}}">{{Category[0]}}</a>
+             <a href="/word/{{Category[0]}}/{{Category[1]}}">{{Category[0]}}</a>
 			 <br><br>
          </div>
          {% endfor %}
@@ -39,10 +39,20 @@
 				<a href="/login">log in</a>
 				{% endif %}
 				<br><br>
-				{% if logged_in %}
+				{% for User in Users %}
+				{% if teacher %}
 				<a href="/edit">add word</a>
 				{% endif %}
+				{% endfor %}
 
+				<br><br>
+				{% for User in Users %}
+			<div class="product-box">
+				{% if logged_in %}
+				<h1><strong>logged in as: {{User[0]}} {{User[1]}}</strong></h1>
+			</div>
+				{% endif %}
+				{% endfor %}
 			</ul>
 		</nav>
 
@@ -63,6 +73,8 @@
 				&copy; Eric Liu 2022
 			</p>
 		</footer>
+
+
 
 	</div>
 </body>

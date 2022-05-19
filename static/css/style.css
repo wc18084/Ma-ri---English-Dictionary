@@ -289,8 +289,9 @@ footer img {
     }
 
     main {
-        background-image: url('/poutama.jpg');
+        background-image: url('/static/images/poutama.jpg');
     }
+
     .formRow {
         display: grid;
         grid-template-columns: 1fr 2fr;
